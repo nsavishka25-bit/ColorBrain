@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Color Brain Insights</title>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f5f5f7;--surf:#fff;--surf2:#f0f0f4;--bd:#e2e2ea;--tx:#15151c;--mu:#62627a;--sh:0 1px 2px rgba(20,20,40,.06),0 8px 24px rgba(20,20,40,.06);
+--R:#FF0000;--G:#00B050;--B:#0070C0;--P:#7030A0;--Rt:#c40000;--Gt:#007a38;--Bt:#0070C0;--Pt:#7030A0;--yel:#b87800;--yelbg:#fff6dc;--redbg:#ffe9e9;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0d0d12;--surf:#16161e;--surf2:#1e1e29;--bd:#2a2a38;--tx:#f1f1f6;--mu:#a0a0b8;--sh:0 8px 24px rgba(0,0,0,.4);--Rt:#ff6b6b;--Gt:#3ddc84;--Bt:#4aa8ff;--Pt:#b37be0;--yel:#ffc83d;--yelbg:#2a2312;--redbg:#2e1616}}
+:root[data-theme="dark"]{--bg:#0d0d12;--surf:#16161e;--surf2:#1e1e29;--bd:#2a2a38;--tx:#f1f1f6;--mu:#a0a0b8;--sh:0 8px 24px rgba(0,0,0,.4);--Rt:#ff6b6b;--Gt:#3ddc84;--Bt:#4aa8ff;--Pt:#b37be0;--yel:#ffc83d;--yelbg:#2a2312;--redbg:#2e1616}
+*{box-sizing:border-box}html{scroll-padding-top:90px}
+body{margin:0;background:var(--bg);color:var(--tx);font:500 15px/1.5 Manrope,system-ui,sans-serif}
+button,input{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--Bt);outline-offset:2px}
+svg{width:1.15em;height:1.15em;flex:none;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--bd)}
+.bar{max-width:1200px;margin:auto;padding:12px 20px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:11px;margin-right:auto;cursor:pointer;background:none;border:0;padding:0;text-align:left}
+.logo{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;color:#fff;background:conic-gradient(var(--R),var(--P),var(--B),var(--G),var(--R))}
+.logo svg{width:24px;height:24px}
+.brand b{display:block;font-size:17px;font-weight:800;line-height:1.1}.brand small{color:var(--mu);font-size:12px}
+nav{display:flex;gap:4px;background:var(--surf2);padding:4px;border-radius:14px}
+nav button{border:0;background:none;padding:8px 14px;border-radius:10px;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:7px;color:var(--mu);transition:.15s}
+nav button:hover{color:var(--tx)}nav button[aria-pressed=true]{background:var(--surf);color:var(--tx);box-shadow:var(--sh)}
+.dot{width:10px;height:10px;border-radius:50%;display:inline-block}
+.tools{display:flex;gap:8px;align-items:center}
+.search{position:relative;display:flex;align-items:center}.search>svg{position:absolute;left:12px;color:var(--mu)}
+.search input{width:260px;max-width:100%;padding:10px 38px;border-radius:12px;border:1px solid var(--bd);background:var(--surf)}
+.search .x{position:absolute;right:6px;border:0;background:none;cursor:pointer;padding:6px;color:var(--mu);display:none}
+.btn{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--bd);background:var(--surf);padding:10px 16px;border-radius:12px;font-weight:700;cursor:pointer;transition:.15s;box-shadow:var(--sh)}
+.btn:hover{transform:translateY(-1px);border-color:var(--mu)}
+.icon{padding:10px}
+.btn.danger{background:linear-gradient(135deg,#ffcf3a,#ff9f1a);color:#2a1a00;border-color:transparent}
+.btn.primary{background:var(--tx);color:var(--bg);border-color:transparent}
+main{max-width:1200px;margin:auto;padding:28px 20px 56px}
+h1{font-size:clamp(26px,4vw,36px);margin:0 0 6px;font-weight:800;letter-spacing:-.02em}
+.lede{color:var(--mu);max-width:64ch;margin:0 0 22px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-bottom:16px}
+.stat{background:var(--surf);border:1px solid var(--bd);border-radius:16px;padding:16px;box-shadow:var(--sh);display:flex;flex-direction:column;gap:4px;transition:.15s}
+.stat:hover{transform:translateY(-2px)}
+.stat .ic{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;color:#fff;margin-bottom:6px}
+.stat strong{font-size:30px;line-height:1;font-weight:800}.stat span{color:var(--mu);font-size:13px}
+.panel{background:var(--surf);border:1px solid var(--bd);border-radius:16px;padding:18px;box-shadow:var(--sh);margin-bottom:22px}
+.panel h2{font-size:15px;margin:0 0 14px}
+.dist{display:flex;height:16px;border-radius:99px;overflow:hidden;gap:2px;margin-bottom:12px}
+.legend{display:flex;gap:18px;flex-wrap:wrap;color:var(--mu);font-size:13px}.legend b{color:var(--tx)}
+.notice{border:1px dashed var(--bd);border-radius:12px;padding:12px 14px;color:var(--mu);font-size:13px;margin-bottom:22px}
+.notice summary{cursor:pointer;font-weight:700;color:var(--tx)}.notice ul{margin:8px 0 0;padding-left:18px}
+.head{display:flex;align-items:end;justify-content:space-between;gap:12px;margin-bottom:14px;flex-wrap:wrap}
+.head h2{margin:0;font-size:22px}.head p{margin:0;color:var(--mu)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:16px}
+.card{background:var(--surf);border:1px solid var(--bd);border-top:5px solid var(--c);border-radius:16px;padding:18px;box-shadow:var(--sh);cursor:pointer;display:flex;flex-direction:column;gap:14px;transition:.15s;text-align:left;width:100%}
+.card:hover{transform:translateY(-3px)}
+.who{display:flex;align-items:center;gap:12px}
+.av{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;color:var(--c);background:color-mix(in srgb,var(--c) 16%,var(--surf));border:2px solid var(--c);flex:none}.av svg{width:56%;height:56%;stroke-width:1.8}.av svg path.sp{fill:currentColor;stroke-width:1}
+.who b{font-size:18px}
+.rows{display:grid;gap:8px}.row{display:flex;justify-content:space-between;align-items:center;gap:8px;color:var(--mu);font-size:13px}
+.pill{display:inline-flex;align-items:center;gap:7px;padding:4px 11px 4px 8px;border-radius:99px;font-weight:700;font-size:13px;background:var(--surf2);color:var(--tx);border:1px solid var(--bd)}
+.pill i{width:12px;height:12px;border-radius:50%;background:var(--c);display:inline-block}
+.go{margin-top:auto;display:flex;align-items:center;justify-content:center;gap:8px;padding:10px;border-radius:12px;background:var(--surf2);font-weight:700}
+.card:hover .go{background:var(--c);color:#fff}
+.empty{text-align:center;padding:48px 16px;border:1px dashed var(--bd);border-radius:16px;color:var(--mu)}
+.empty h3{color:var(--tx);margin:0 0 6px}
+.top{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:20px}.top .sp{margin-left:auto}
+.ph{display:flex;align-items:center;gap:18px;flex-wrap:wrap;background:var(--surf);border:1px solid var(--bd);border-left:8px solid var(--c);border-radius:20px;padding:22px;box-shadow:var(--sh);margin-bottom:20px}
+.ph .av{width:72px;height:72px}.ph h1{margin:0 0 8px}.ph .pills{display:flex;gap:8px;flex-wrap:wrap}.ph .btn{margin-left:auto}
+.two{display:grid;grid-template-columns:1.6fr 1fr;gap:20px;align-items:start}
+@media(max-width:860px){.two{grid-template-columns:1fr}.mis{order:-1}.search input{width:100%}.tools,.search{width:100%}nav{width:100%;overflow-x:auto}}
+.fields{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:20px}
+@media(max-width:520px){.fields{grid-template-columns:1fr}}
+.field{background:var(--surf);border:1px solid var(--bd);border-radius:16px;padding:18px;box-shadow:var(--sh)}
+.field small{color:var(--mu);display:block;margin-bottom:10px;font-weight:600}
+.big{display:flex;align-items:center;gap:12px;font-size:22px;font-weight:800}.big i{width:34px;height:34px;border-radius:10px;background:var(--c)}
+.dz{background:var(--surf);border:1px solid var(--bd);border-radius:20px;box-shadow:var(--sh);overflow:hidden}
+.dz>summary{list-style:none;cursor:pointer;padding:16px 20px;display:flex;align-items:center;gap:10px;font-weight:800;font-size:17px;background:repeating-linear-gradient(135deg,#ffcf3a 0 14px,#1b1b1b 14px 28px);color:#fff}
+.dz>summary span{background:#111;padding:4px 12px;border-radius:99px;display:flex;align-items:center;gap:8px}
+.dz>summary::-webkit-details-marker{display:none}
+.zone{padding:18px 20px;border-top:1px solid var(--bd)}
+.zone h3{margin:0 0 4px;font-size:16px;display:flex;gap:8px;align-items:center}.zone.y h3{color:var(--yel)}.zone.r h3{color:var(--Rt)}
+.zone p{margin:0 0 12px;color:var(--mu);font-size:13px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{padding:6px 14px;border-radius:99px;font-weight:700;font-size:14px;border:1px solid}
+.y .chip{background:var(--yelbg);border-color:var(--yel);color:var(--yel)}.r .chip{background:var(--redbg);border-color:var(--Rt);color:var(--Rt)}
+.none{color:var(--mu);font-style:italic}
+.mis{border-radius:20px;padding:24px;background:var(--surf);border:1px solid var(--bd);border-top:8px solid var(--c);box-shadow:var(--sh)}
+.mis h2{margin:0 0 16px;font-size:18px}
+.sw{border-radius:16px;padding:26px;background:var(--c);color:#fff;font-size:26px;font-weight:800;margin-bottom:16px;display:flex;align-items:center;gap:12px}
+.sw svg{width:30px;height:30px}.mis p{margin:0;color:var(--mu)}
+.counts{display:flex;gap:10px;margin-top:20px;flex-wrap:wrap}.counts .pill{font-weight:600}
+@media print{header,.top,.dz>summary{display:none!important}.dz .zone{display:block}body{background:#fff;color:#000}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<header><div class="bar">
+<button class="brand" id="home" aria-label="Back to all profiles"><span class="logo"><svg viewBox="0 0 24 24"><path d="M9 4a3 3 0 0 0-3 3 3 3 0 0 0-2 5 3.5 3.5 0 0 0 2 5.5A3 3 0 0 0 12 19V5a3 3 0 0 0-3-1z"/><path d="M15 4a3 3 0 0 1 3 3 3 3 0 0 1 2 5 3.5 3.5 0 0 1-2 5.5A3 3 0 0 1 12 19"/><path d="M9 9h1.5M13.5 9H15M9 14h1.5M13.5 14H15"/></svg></span><span><b>Color Brain Insights</b><small>Team Communication Profiles</small></span></button>
+<nav id="nav" aria-label="Filter by primary brain color"></nav>
+<div class="tools"><label class="search"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input id="q" type="search" placeholder="Search by name or brain color..." aria-label="Search profiles" autocomplete="off"><button class="x" id="clr" aria-label="Clear search"><svg viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></svg></button></label>
+<button class="btn icon" id="theme" aria-label="Toggle dark and light mode"></button></div>
+</div></header>
+<main id="app"></main>
+<script>
+const COLORS=["Red","Green","Blue","Purple"],HEX={Red:"#FF0000",Green:"#00B050",Blue:"#0070C0",Purple:"#7030A0"};
+const ICO={Red:'<path d="M13 2 3 14h9l-1 8 10-12h-9z"/>',Green:'<path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.5 19 2c1 2 2 4.2 2 8 0 5.5-4.8 10-10 10zM2 21c0-3 1.9-5.5 6-7"/>',Blue:'<path d="M3 3v18h18M7 15l4-4 3 3 5-6"/>',Purple:'<circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2"/>'};
+const I=(p)=>`<svg viewBox="0 0 24 24" aria-hidden="true">${p}</svg>`;
+const ALERT='<path d="m10.3 3.9-8.5 14.7A2 2 0 0 0 3.5 21.6h17a2 2 0 0 0 1.7-3l-8.5-14.7a2 2 0 0 0-3.4 0zM12 9v4M12 17h.01"/>';
+const ARROW='<path d="M5 12h14M13 6l6 6-6 6"/>',BACK='<path d="M19 12H5M11 6l-6 6 6 6"/>';
+const BRAIN=I('<path d="M9 4a3 3 0 0 0-3 3 3 3 0 0 0-2 5 3.5 3.5 0 0 0 2 5.5A3 3 0 0 0 12 19V5a3 3 0 0 0-3-1z"/><path d="M15 4a3 3 0 0 1 3 3 3 3 0 0 1 2 5 3.5 3.5 0 0 1-2 5.5A3 3 0 0 1 12 19"/><path d="M9 9h1.5M13.5 9H15M9 14h1.5M13.5 14H15"/><path class="sp" d="M20.500 0.500l.7 1.800 1.800.7-1.800.7-.7 1.800-.7-1.800-1.800-.7 1.800-.7z"/>');
+// Transcribed from the supplied results screenshot (workbook not attached). [name, primary, secondary, miscommunication, yellow list, red list]
+const RAW=[
+["Dasith","R","G","R","Shelina / Chanaru / Malporu / Amanda / Ilisha / Kasuni / Tharushi"],
+["Chanaru","G","B","R","Dulanjali"],
+["Naveen","R","P","P","Shelina / Chanaru / Malporu / Ilisha / Dasith / Amanda / Tharushi"],
+["Suresh","P","R","B","Naveen / Sanjana / Majani"],
+["Lakmal","P","G","B","Sanjana / Naveen / Mejani"],
+["Tharushi","B","G","R","Raveena / Disandi / Thenuwari / Suresh / Kaushi / Lakmal"],
+["Kasuni","B","P","R","Raveena / Suresh / Thanuwari / Kaushi / Lakmak / Disandi"],
+["Mejani","B","P","P","Raveena / Disandi / Suresh / Lakmal / Thenuwari / Kaushi"],
+["Kaushi","P","B","B","Naveen / Sanjana / Mejani"],
+["Malporu","G","P","R","Not Found"],
+["Disandi","R","P","B","Chanaru / Shelina / Malporu / Ilisha / Dasith / Amanda / Tharushi / Kasuni /"],
+["Amanda","R","P","R","Chanaru / Shelina / Malporu / Dasith / Ilisha / Kasuni / Tharushi"],
+["Ilisha","R","G","R","Chanaru / Shelina / Malporu / Tharushi / Kasuni / Dasith / Amanda /"],
+["Shelina","G","R","R","Dulanjali"],
+["Sanjana","B","G","G","Mejani / Naveen"],
+["Dulanjali","G","P","G","Not Found"],
+["Thenuwari","P","B","B","Naveen / Sanjana / Mejani"],
+["Raveena","G","B","B","Dulanjali"]];
+const M={R:"Red",G:"Green",B:"Blue",P:"Purple"};
+const DATA=RAW.map((r,i)=>({id:"p"+i,name:r[0],pri:M[r[1]]||null,sec:M[r[2]]||null,mis:M[r[3]]||null,
+ yel:r[4].split("/").map(s=>s.trim()).filter(Boolean),yelNote:/^not found$/i.test(r[4].trim()),red:[]}));
+DATA.forEach(p=>{if(p.yelNote)p.yel=[]});
+const S={cat:"All",q:"",pid:null};
+const $=s=>document.querySelector(s),app=$("#app");
+const hex=c=>HEX[c]||"#888",tv=c=>c?`var(--${c[0]}t)`:"var(--mu)";
+const pill=(c,l)=>c?`<span class="pill" style="--c:${hex(c)}"><i></i>${c}</span>`:`<span class="pill">Unavailable</span>`;
+function match(p){const q=S.q.trim().toLowerCase();
+ if(S.cat!=="All"&&p.pri!==S.cat)return false;
+ if(!q)return true;return [p.name,p.pri,p.sec,p.mis].some(v=>v&&v.toLowerCase().includes(q))}
+function nav(){const items=["All",...COLORS];
+ $("#nav").innerHTML=items.map(c=>`<button aria-pressed="${S.cat===c}" data-c="${c}">${c==="All"?I('<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>'):`<span class="dot" style="background:${hex(c)}"></span>`}${c==="All"?"All-in-One":c}</button>`).join("");
+ $("#nav").querySelectorAll("button").forEach(b=>b.onclick=()=>{S.cat=b.dataset.c;S.pid=null;render()})}
+function dash(){
+ const n=DATA.length,cnt=c=>DATA.filter(p=>p.pri===c).length,unk=DATA.filter(p=>!p.pri).length;
+ const list=DATA.filter(match);
+ const issues=[];
+ if(!unk)issues.push("All 18 primary colors were identified."); else issues.push(unk+" profiles have an unrecognized primary color.");
+ issues.push("Source is a screenshot of the workbook, so colors were read visually, not from cell RGB values.");
+ issues.push("The Red column (“They became disappointed with me.”) is empty in the screenshot, so every Red list shows “No names listed.”");
+ issues.push("“Not Found” is kept as recorded (Malporu, Dulanjali). Names with possible typos are preserved as written: Majani, Mejani, Thanuwari, Lakmak.");
+ issues.push("Two Yellow lists end with a trailing “/” in the source (Disandi, Ilisha); the empty entry is ignored.");
+ const stats=`<div class="stat"><span class="ic" style="background:var(--tx);color:var(--bg)">${I('<circle cx="9" cy="8" r="3.5"/><path d="M2 20c0-4 3-6 7-6s7 2 7 6M17 5a3.5 3.5 0 0 1 0 6.500M22 20c0-3-1.500-5-4-5.700"/>')}</span><strong>${n}</strong><span>Total Team Members</span></div>`+
+ COLORS.map(c=>`<div class="stat"><span class="ic" style="background:${hex(c)}">${I(ICO[c])}</span><strong>${cnt(c)}</strong><span>${c} Primary</span></div>`).join("");
+ const bar=COLORS.map(c=>cnt(c)?`<div title="${c}: ${cnt(c)}" style="flex:${cnt(c)};background:${hex(c)}"></div>`:"").join("")+(unk?`<div style="flex:${unk};background:#888"></div>`:"");
+ const leg=COLORS.map(c=>`<span><span class="dot" style="background:${hex(c)}"></span> ${c} <b>${cnt(c)}</b> (${Math.round(cnt(c)/n*100)}%)</span>`).join("")+(unk?`<span>Unrecognized <b>${unk}</b></span>`:"");
+ const title=S.cat==="All"?"All profiles":S.cat+" primary profiles";
+ const cards=list.map(p=>`<button class="card" style="--c:${hex(p.pri)}" data-id="${p.id}" aria-label="Open ${p.name}’s profile"><span class="who"><span class="av">${BRAIN}</span><b>${p.name}</b></span>
+ <span class="rows"><span class="row">Primary Brain Color ${pill(p.pri)}</span><span class="row">Secondary / Nurtured ${pill(p.sec)}</span><span class="row">Primary Miscommunication ${pill(p.mis)}</span></span>
+ <span class="go">View full profile ${I(ARROW)}</span></button>`).join("");
+ app.innerHTML=`<h1>Team Color Brain Overview</h1><p class="lede">This dashboard presents team members’ recorded Color Brain results and communication-related insights. It is a self-awareness tool, not a diagnosis or a verdict on anyone’s relationships.</p>
+ <div class="stats">${stats}</div>
+ <section class="panel" aria-label="Primary brain color distribution"><h2>Primary brain color distribution</h2><div class="dist" role="img" aria-label="Distribution of primary colors">${bar}</div><div class="legend">${leg}</div></section>
+ <details class="notice"><summary>Data-quality notes</summary><ul>${issues.map(i=>`<li>${i}</li>`).join("")}</ul></details>
+ <div class="head"><div><h2>${title}</h2><p>${list.length} of ${n} ${list.length===1?"profile":"profiles"}${S.q.trim()?` matching “${S.q.trim()}”`:""}</p></div>${(S.cat!=="All"||S.q)?`<button class="btn" id="rst">Reset to All-in-One</button>`:""}</div>
+ ${list.length?`<div class="grid">${cards}</div>`:`<div class="empty"><h3>No profiles match</h3>Try a different name or color, or reset the filters.<br><br><button class="btn primary" id="rst2">Show all profiles</button></div>`}`;
+ app.querySelectorAll(".card").forEach(c=>c.onclick=()=>{S.pid=c.dataset.id;window.scrollTo(0,0);render()});
+ ["#rst","#rst2"].forEach(s=>{const b=$(s);if(b)b.onclick=()=>{S.cat="All";S.q="";$("#q").value="";render()}})}
+const chips=(a,none)=>a.length?`<div class="chips">${a.map(n=>`<span class="chip">${n}</span>`).join("")}</div>`:`<p class="none" style="margin:0">${none}</p>`;
+function detail(){
+ const list=DATA.filter(match),p=DATA.find(x=>x.id===S.pid),i=list.findIndex(x=>x.id===p.id);
+ const prev=i>0?list[i-1]:null,next=i>=0&&i<list.length-1?list[i+1]:null;
+ const filled=[p.pri,p.sec,p.mis].filter(Boolean).length;
+ app.innerHTML=`<div class="top"><button class="btn" id="back">${I(BACK)} Back to dashboard</button><span class="sp"></span>
+ <button class="btn" id="pv" ${prev?"":"disabled"} aria-label="Previous profile">${I('<path d="m15 18-6-6 6-6"/>')} ${prev?prev.name:"Previous"}</button>
+ <button class="btn" id="nx" ${next?"":"disabled"} aria-label="Next profile">${next?next.name:"Next"} ${I('<path d="m9 18 6-6-6-6"/>')}</button>
+ <button class="btn" onclick="window.print()">${I('<path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/>')} Print profile</button></div>
+ <div class="ph" style="--c:${hex(p.pri)}"><span class="av">${BRAIN}</span><div><h1>${p.name}</h1><div class="pills">${pill(p.pri)}${pill(p.sec)}</div></div>
+ <button class="btn danger" id="dzb">${I(ALERT)} Danger Zone</button></div>
+ <div class="two"><div>
+ <div class="fields"><div class="field"><small>Primary Brain Color</small><div class="big" style="--c:${hex(p.pri)}"><i></i>${p.pri||"Unavailable"}</div></div>
+ <div class="field"><small>Secondary Brain Color (Nurtured Color)</small><div class="big" style="--c:${hex(p.sec)}"><i></i>${p.sec||"Unavailable"}</div></div></div>
+ <details class="dz" id="dz" open><summary><span>${I(ALERT)} Danger Zone</span></summary>
+ <div class="zone y"><h3>${I('<circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/>')} They are disappointed with me. (Yellow)</h3><p>${p.yel.length} ${p.yel.length===1?"name":"names"} recorded${p.yelNote?" (source says “Not Found”)":""}</p>${chips(p.yel,p.yelNote?"Not Found (as recorded in the source).":"No names listed.")}</div>
+ <div class="zone r"><h3>${I(ALERT)} They became disappointed with me. (Red)</h3><p>${p.red.length} names recorded</p>${chips(p.red,"No names listed.")}</div>
+ <div class="zone"><p style="margin:0">These lists are recorded information from the source spreadsheet. They are not proof that anyone is at fault.</p></div></details>
+ </div>
+ <aside class="mis" style="--c:${hex(p.mis)}" aria-labelledby="mh"><h2 id="mh">Primary Miscommunication</h2>
+ <div class="sw">${I('<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>')}${p.mis||"Unavailable"}</div>
+ <p>This section shows where your communication style may be most misunderstood by others — based on your reverse-scored miscommunication profile.</p>
+ <div class="counts"><span class="pill">${filled} of 3 color fields filled</span><span class="pill">Yellow: ${p.yel.length}</span><span class="pill">Red: ${p.red.length}</span></div></aside></div>`;
+ $("#back").onclick=()=>{S.pid=null;render()};
+ if(prev)$("#pv").onclick=()=>{S.pid=prev.id;window.scrollTo(0,0);render()};
+ if(next)$("#nx").onclick=()=>{S.pid=next.id;window.scrollTo(0,0);render()};
+ $("#dzb").onclick=()=>{const d=$("#dz");d.open=true;d.scrollIntoView({behavior:"smooth",block:"start"});d.querySelector(".zone").focus?.()}}
+function render(){nav();$("#clr").style.display=S.q?"block":"none";S.pid?detail():dash()}
+$("#q").oninput=e=>{S.q=e.target.value;S.pid=null;render()};
+$("#clr").onclick=()=>{S.q="";$("#q").value="";$("#q").focus();render()};
+$("#home").onclick=()=>{S.cat="All";S.q="";S.pid=null;$("#q").value="";render()};
+const SUN='<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.900 4.900l1.400 1.400M17.700 17.700l1.400 1.400M2 12h2M20 12h2M4.900 19.100l1.400-1.400M17.700 6.300l1.400-1.400"/>',MOON='<path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9z"/>';
+function theme(t){document.documentElement.dataset.theme=t;$("#theme").innerHTML=I(t==="dark"?SUN:MOON);$("#theme").title=t==="dark"?"Switch to light mode":"Switch to dark mode";try{localStorage.setItem("cbi-theme",t)}catch(e){}}
+let t0=null;try{t0=localStorage.getItem("cbi-theme")}catch(e){}
+theme(t0||(matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light"));
+$("#theme").onclick=()=>theme(document.documentElement.dataset.theme==="dark"?"light":"dark");
+render();
+</script>
+</body>
+</html>
